@@ -47,43 +47,43 @@ export default function Dashboard() {
   };
 
   return (
-    <div className="min-h-screen p-6 pb-24">
+    <div className="min-h-screen p-4 pb-24 max-w-2xl mx-auto">
       {/* Header */}
-      <div className="mb-8">
+      <div className="mb-6">
         <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="flex items-center gap-4 mb-6"
+          className="flex items-center gap-3 mb-5"
         >
-          <div className="w-16 h-16 bg-gradient-to-br from-[var(--primary)] to-[var(--secondary)] rounded-full flex items-center justify-center text-3xl shadow-lg">
+          <div className="w-14 h-14 bg-gradient-to-br from-[var(--primary)] to-[var(--secondary)] rounded-full flex items-center justify-center text-2xl shadow-lg">
             👧
           </div>
           <div>
-            <h1 className="text-2xl">Привет, Маша!</h1>
-            <p className="text-[var(--muted-foreground)]">
+            <h1 className="text-xl leading-tight mb-1">Привет, Маша!</h1>
+            <p className="text-sm text-[var(--muted-foreground)]">
               Готова учиться сегодня?
             </p>
           </div>
         </motion.div>
 
         {/* Stats */}
-        <div className="grid grid-cols-3 gap-3">
+        <div className="grid grid-cols-3 gap-2">
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.1 }}
-            className="bg-white rounded-2xl p-4 text-center shadow-md"
+            className="bg-white rounded-xl p-3 text-center shadow-md"
           >
             <Star
-              className="mx-auto mb-2"
-              size={24}
+              className="mx-auto mb-1"
+              size={20}
               style={{ color: "var(--warning)" }}
             />
-            <div className="text-2xl mb-1" style={{ color: "var(--warning)" }}>
+            <div className="text-xl mb-0.5" style={{ color: "var(--warning)" }}>
               45
             </div>
-            <div className="text-sm text-[var(--muted-foreground)]">
-              Звезды сегодня
+            <div className="text-xs text-[var(--muted-foreground)]">
+              Звезды
             </div>
           </motion.div>
 
@@ -91,21 +91,21 @@ export default function Dashboard() {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.2 }}
-            className="bg-white rounded-2xl p-4 text-center shadow-md"
+            className="bg-white rounded-xl p-3 text-center shadow-md"
           >
             <Award
-              className="mx-auto mb-2"
-              size={24}
+              className="mx-auto mb-1"
+              size={20}
               style={{ color: "var(--primary)" }}
             />
             <div
-              className="text-2xl mb-1"
+              className="text-xl mb-0.5"
               style={{ color: "var(--primary)" }}
             >
               12
             </div>
-            <div className="text-sm text-[var(--muted-foreground)]">
-              Достижений
+            <div className="text-xs text-[var(--muted-foreground)]">
+              Наград
             </div>
           </motion.div>
 
@@ -113,21 +113,21 @@ export default function Dashboard() {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.3 }}
-            className="bg-white rounded-2xl p-4 text-center shadow-md"
+            className="bg-white rounded-xl p-3 text-center shadow-md"
           >
             <TrendingUp
-              className="mx-auto mb-2"
-              size={24}
+              className="mx-auto mb-1"
+              size={20}
               style={{ color: "var(--success)" }}
             />
             <div
-              className="text-2xl mb-1"
+              className="text-xl mb-0.5"
               style={{ color: "var(--success)" }}
             >
               7
             </div>
-            <div className="text-sm text-[var(--muted-foreground)]">
-              Дней подряд
+            <div className="text-xs text-[var(--muted-foreground)]">
+              Дней
             </div>
           </motion.div>
         </div>
@@ -138,27 +138,27 @@ export default function Dashboard() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.4 }}
-        className="mb-6"
+        className="mb-5"
       >
-        <h2 className="mb-4">Продолжить обучение</h2>
+        <h2 className="mb-3 text-lg">Продолжить обучение</h2>
         <div
-          className="bg-white rounded-2xl p-6 shadow-lg relative overflow-hidden"
+          className="bg-white rounded-xl p-5 shadow-lg relative overflow-hidden"
           style={{
             background:
               "linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%)",
           }}
         >
           <div className="relative z-10">
-            <div className="text-5xl mb-3">🎯</div>
-            <h3 className="text-white mb-2">Найди пару</h3>
-            <p className="text-white text-opacity-90 mb-4">
+            <div className="text-4xl mb-2">🎯</div>
+            <h3 className="text-white mb-1 text-lg">Найди пару</h3>
+            <p className="text-white text-opacity-90 mb-3 text-sm">
               Осталось 3 уровня
             </p>
             <motion.button
               whileTap={{ scale: 0.95 }}
-              className="bg-white text-[var(--primary)] px-6 py-3 rounded-xl flex items-center gap-2 shadow-lg"
+              className="bg-white text-[var(--primary)] px-5 py-2.5 rounded-xl flex items-center gap-2 shadow-lg text-sm"
             >
-              <Play size={20} />
+              <Play size={18} />
               Продолжить
             </motion.button>
           </div>
@@ -167,17 +167,17 @@ export default function Dashboard() {
 
       {/* Recommended Exercises */}
       <div>
-        <div className="flex items-center justify-between mb-4">
-          <h2>Рекомендуем</h2>
+        <div className="flex items-center justify-between mb-3">
+          <h2 className="text-lg">Рекомендуем</h2>
           <Link
             to="/exercises"
-            className="text-[var(--primary)] hover:underline"
+            className="text-sm text-[var(--primary)] hover:underline"
           >
-            Все упражнения
+            Все
           </Link>
         </div>
 
-        <div className="space-y-3">
+        <div className="space-y-2.5">
           {recommendedExercises.map((exercise, index) => (
             <motion.div
               key={exercise.id}
@@ -185,23 +185,23 @@ export default function Dashboard() {
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.5 + index * 0.1 }}
               whileTap={{ scale: 0.98 }}
-              className="bg-white rounded-2xl p-5 shadow-md hover:shadow-lg transition-shadow cursor-pointer"
+              className="bg-white rounded-xl p-4 shadow-md active:shadow-lg transition-shadow cursor-pointer"
             >
-              <div className="flex items-center gap-4">
+              <div className="flex items-center gap-3">
                 <div
-                  className="w-14 h-14 rounded-xl flex items-center justify-center text-3xl"
+                  className="w-12 h-12 rounded-lg flex items-center justify-center text-2xl flex-shrink-0"
                   style={{ backgroundColor: `${getCategoryColor(exercise.category)}20` }}
                 >
                   {exercise.icon}
                 </div>
 
-                <div className="flex-1">
-                  <h3 className="mb-1">{exercise.title}</h3>
-                  <div className="flex items-center gap-2 mb-2">
+                <div className="flex-1 min-w-0">
+                  <h3 className="mb-1 text-base truncate">{exercise.title}</h3>
+                  <div className="flex items-center gap-1.5 mb-1">
                     {[...Array(5)].map((_, i) => (
                       <Star
                         key={i}
-                        size={14}
+                        size={12}
                         fill={i < exercise.difficulty ? "var(--warning)" : "none"}
                         style={{
                           color:
@@ -212,13 +212,14 @@ export default function Dashboard() {
                       />
                     ))}
                   </div>
-                  <div className="text-sm text-[var(--muted-foreground)]">
-                    Пройдено {exercise.progress}/{exercise.total} уровней
+                  <div className="text-xs text-[var(--muted-foreground)]">
+                    {exercise.progress}/{exercise.total} уровней
                   </div>
                 </div>
 
                 <Play
-                  size={24}
+                  size={20}
+                  className="flex-shrink-0"
                   style={{ color: getCategoryColor(exercise.category) }}
                 />
               </div>
@@ -232,12 +233,12 @@ export default function Dashboard() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.8 }}
-        className="mt-8"
+        className="mt-6"
       >
         <Link to="/exercises">
           <motion.button
             whileTap={{ scale: 0.95 }}
-            className="w-full py-5 rounded-2xl text-white text-xl shadow-xl"
+            className="w-full py-4 rounded-xl text-white text-lg shadow-xl font-medium"
             style={{
               background:
                 "linear-gradient(135deg, var(--primary), var(--secondary))",

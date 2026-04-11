@@ -15,81 +15,81 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-6">
+    <div className="min-h-screen flex items-center justify-center p-4">
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         className="w-full max-w-md"
       >
         {/* Mascot */}
-        <div className="text-center mb-8">
+        <div className="text-center mb-6">
           <motion.div
             animate={{ y: [0, -10, 0] }}
             transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
-            className="text-8xl mb-4"
+            className="text-7xl mb-3"
           >
             🦉
           </motion.div>
-          <h1 className="text-3xl mb-2" style={{ color: "var(--primary)" }}>
+          <h1 className="text-2xl mb-1" style={{ color: "var(--primary)" }}>
             НейроРазвитие
           </h1>
-          <p className="text-[var(--muted-foreground)]">
+          <p className="text-sm text-[var(--muted-foreground)]">
             Развиваемся вместе, играя!
           </p>
         </div>
 
         {/* Role Selection */}
-        <div className="bg-white rounded-2xl shadow-lg p-6 mb-6">
-          <h2 className="mb-4">Выберите роль</h2>
-          <div className="flex gap-3">
+        <div className="bg-white rounded-xl shadow-lg p-5 mb-5">
+          <h2 className="mb-3 text-base">Выберите роль</h2>
+          <div className="flex gap-2.5">
             <button
               onClick={() => setRole("child")}
-              className={`flex-1 p-4 rounded-xl border-2 transition-all ${
+              className={`flex-1 p-3.5 rounded-xl border-2 transition-all ${
                 role === "child"
                   ? "border-[var(--primary)] bg-[var(--primary)] bg-opacity-10"
-                  : "border-gray-200 hover:border-[var(--primary)]"
+                  : "border-gray-200 active:border-[var(--primary)]"
               }`}
             >
-              <div className="text-3xl mb-2">👧</div>
-              <div className="font-medium">Ребенок</div>
+              <div className="text-2xl mb-1.5">👧</div>
+              <div className="text-sm font-medium">Ребенок</div>
             </button>
             <button
               onClick={() => setRole("parent")}
-              className={`flex-1 p-4 rounded-xl border-2 transition-all ${
+              className={`flex-1 p-3.5 rounded-xl border-2 transition-all ${
                 role === "parent"
                   ? "border-[var(--primary)] bg-[var(--primary)] bg-opacity-10"
-                  : "border-gray-200 hover:border-[var(--primary)]"
+                  : "border-gray-200 active:border-[var(--primary)]"
               }`}
             >
-              <div className="text-3xl mb-2">👨‍👩‍👧</div>
-              <div className="font-medium">Родитель</div>
+              <div className="text-2xl mb-1.5">👨‍👩‍👧</div>
+              <div className="text-sm font-medium">Родитель</div>
             </button>
           </div>
         </div>
 
         {/* Login Form */}
-        <div className="bg-white rounded-2xl shadow-lg p-6 space-y-4">
+        <div className="bg-white rounded-xl shadow-lg p-5 space-y-3.5">
           <div>
-            <label className="block mb-2">Email</label>
+            <label className="block mb-1.5 text-sm">Email</label>
             <input
               type="email"
               placeholder="example@mail.com"
-              className="w-full px-4 py-3 bg-[var(--input-background)] rounded-xl border border-[var(--border)] focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
+              className="w-full px-4 py-2.5 bg-[var(--input-background)] rounded-xl border border-[var(--border)] focus:outline-none focus:ring-2 focus:ring-[var(--primary)] text-sm"
             />
           </div>
           <div>
-            <label className="block mb-2">Пароль</label>
+            <label className="block mb-1.5 text-sm">Пароль</label>
             <input
               type="password"
               placeholder="••••••••"
-              className="w-full px-4 py-3 bg-[var(--input-background)] rounded-xl border border-[var(--border)] focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
+              className="w-full px-4 py-2.5 bg-[var(--input-background)] rounded-xl border border-[var(--border)] focus:outline-none focus:ring-2 focus:ring-[var(--primary)] text-sm"
             />
           </div>
 
           <motion.button
             whileTap={{ scale: 0.95 }}
             onClick={handleLogin}
-            className="w-full py-4 rounded-xl text-white shadow-lg"
+            className="w-full py-3.5 rounded-xl text-white shadow-lg font-medium"
             style={{
               background: "linear-gradient(135deg, var(--primary), var(--secondary))",
             }}
@@ -97,16 +97,16 @@ export default function Login() {
             Войти
           </motion.button>
 
-          <div className="text-center space-y-2">
+          <div className="text-center space-y-1.5">
             <a
               href="#"
-              className="text-sm text-[var(--primary)] hover:underline block"
+              className="text-xs text-[var(--primary)] hover:underline block"
             >
               Забыли пароль?
             </a>
             <a
               href="#"
-              className="text-sm text-[var(--muted-foreground)] hover:text-[var(--primary)] block"
+              className="text-xs text-[var(--muted-foreground)] hover:text-[var(--primary)] block"
             >
               Регистрация
             </a>

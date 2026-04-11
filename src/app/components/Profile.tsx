@@ -106,73 +106,73 @@ export default function Profile() {
   ];
 
   return (
-    <div className="min-h-screen p-6 pb-24">
+    <div className="min-h-screen p-4 pb-24 max-w-2xl mx-auto">
       {/* Profile Header */}
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="mb-8"
+        className="mb-6"
       >
-        <div className="bg-white rounded-2xl p-6 shadow-lg">
-          <div className="flex items-center gap-4 mb-6">
+        <div className="bg-white rounded-xl p-5 shadow-lg">
+          <div className="flex items-center gap-3 mb-4">
             <div className="relative">
-              <div className="w-20 h-20 bg-gradient-to-br from-[var(--primary)] to-[var(--secondary)] rounded-full flex items-center justify-center text-4xl shadow-lg">
+              <div className="w-16 h-16 bg-gradient-to-br from-[var(--primary)] to-[var(--secondary)] rounded-full flex items-center justify-center text-3xl shadow-lg">
                 👧
               </div>
-              <button className="absolute -bottom-1 -right-1 w-8 h-8 bg-white rounded-full flex items-center justify-center shadow-md text-sm">
+              <button className="absolute -bottom-0.5 -right-0.5 w-7 h-7 bg-white rounded-full flex items-center justify-center shadow-md text-xs">
                 ✏️
               </button>
             </div>
-            <div className="flex-1">
-              <h1 className="text-2xl mb-1">Маша</h1>
-              <p className="text-[var(--muted-foreground)]">6 лет</p>
+            <div className="flex-1 min-w-0">
+              <h1 className="text-xl mb-0.5 truncate">Маша</h1>
+              <p className="text-sm text-[var(--muted-foreground)]">6 лет</p>
             </div>
-            <div className="text-right">
+            <div className="text-right flex-shrink-0">
               <div
-                className="text-3xl mb-1"
+                className="text-2xl mb-0.5"
                 style={{ color: "var(--primary)" }}
               >
                 Ур. 12
               </div>
-              <p className="text-sm text-[var(--muted-foreground)]">
+              <p className="text-xs text-[var(--muted-foreground)]">
                 1250 XP
               </p>
             </div>
           </div>
 
           {/* Stats Grid */}
-          <div className="grid grid-cols-3 gap-3">
-            <div className="text-center p-3 bg-[var(--background)] rounded-xl">
+          <div className="grid grid-cols-3 gap-2">
+            <div className="text-center p-2.5 bg-[var(--background)] rounded-lg">
               <div
-                className="text-2xl mb-1"
+                className="text-lg mb-0.5"
                 style={{ color: "var(--warning)" }}
               >
                 ★ 450
               </div>
-              <div className="text-xs text-[var(--muted-foreground)]">
-                Всего звезд
+              <div className="text-[10px] text-[var(--muted-foreground)] leading-tight">
+                Звезд
               </div>
             </div>
-            <div className="text-center p-3 bg-[var(--background)] rounded-xl">
+            <div className="text-center p-2.5 bg-[var(--background)] rounded-lg">
               <div
-                className="text-2xl mb-1"
+                className="text-lg mb-0.5"
                 style={{ color: "var(--success)" }}
               >
                 🔥 7
               </div>
-              <div className="text-xs text-[var(--muted-foreground)]">
-                Дней подряд
+              <div className="text-[10px] text-[var(--muted-foreground)] leading-tight">
+                Дней
               </div>
             </div>
-            <div className="text-center p-3 bg-[var(--background)] rounded-xl">
+            <div className="text-center p-2.5 bg-[var(--background)] rounded-lg">
               <div
-                className="text-2xl mb-1"
+                className="text-lg mb-0.5"
                 style={{ color: "var(--primary)" }}
               >
                 🏆 12
               </div>
-              <div className="text-xs text-[var(--muted-foreground)]">
-                Достижений
+              <div className="text-[10px] text-[var(--muted-foreground)] leading-tight">
+                Наград
               </div>
             </div>
           </div>
@@ -180,38 +180,38 @@ export default function Profile() {
       </motion.div>
 
       {/* Tabs */}
-      <div className="flex gap-2 mb-6 overflow-x-auto">
+      <div className="flex gap-2 mb-5 overflow-x-auto pb-1 -mx-4 px-4">
         <button
           onClick={() => setActiveTab("skills")}
-          className={`flex items-center gap-2 px-4 py-3 rounded-xl whitespace-nowrap transition-all ${
+          className={`flex items-center gap-1.5 px-3 py-2.5 rounded-xl whitespace-nowrap transition-all text-sm flex-shrink-0 ${
             activeTab === "skills"
               ? "bg-[var(--primary)] text-white shadow-lg"
               : "bg-white text-gray-700 shadow-md"
           }`}
         >
-          <TrendingUp size={18} />
+          <TrendingUp size={16} />
           Навыки
         </button>
         <button
           onClick={() => setActiveTab("achievements")}
-          className={`flex items-center gap-2 px-4 py-3 rounded-xl whitespace-nowrap transition-all ${
+          className={`flex items-center gap-1.5 px-3 py-2.5 rounded-xl whitespace-nowrap transition-all text-sm flex-shrink-0 ${
             activeTab === "achievements"
               ? "bg-[var(--primary)] text-white shadow-lg"
               : "bg-white text-gray-700 shadow-md"
           }`}
         >
-          <Award size={18} />
+          <Award size={16} />
           Достижения
         </button>
         <button
           onClick={() => setActiveTab("history")}
-          className={`flex items-center gap-2 px-4 py-3 rounded-xl whitespace-nowrap transition-all ${
+          className={`flex items-center gap-1.5 px-3 py-2.5 rounded-xl whitespace-nowrap transition-all text-sm flex-shrink-0 ${
             activeTab === "history"
               ? "bg-[var(--primary)] text-white shadow-lg"
               : "bg-white text-gray-700 shadow-md"
           }`}
         >
-          <Calendar size={18} />
+          <Calendar size={16} />
           История
         </button>
       </div>
@@ -221,7 +221,7 @@ export default function Profile() {
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          className="space-y-4"
+          className="space-y-3"
         >
           {skills.map((skill, index) => (
             <motion.div
@@ -229,18 +229,18 @@ export default function Profile() {
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: index * 0.1 }}
-              className="bg-white rounded-2xl p-5 shadow-md"
+              className="bg-white rounded-xl p-4 shadow-md"
             >
-              <div className="flex justify-between items-center mb-3">
-                <h3 className="flex-1">{skill.name}</h3>
+              <div className="flex justify-between items-center mb-2">
+                <h3 className="flex-1 text-base">{skill.name}</h3>
                 <span
-                  className="text-xl"
+                  className="text-lg font-medium"
                   style={{ color: skill.color }}
                 >
                   {skill.value}%
                 </span>
               </div>
-              <div className="h-3 bg-gray-200 rounded-full overflow-hidden">
+              <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
                 <motion.div
                   initial={{ width: 0 }}
                   animate={{ width: `${skill.value}%` }}
@@ -259,7 +259,7 @@ export default function Profile() {
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          className="grid grid-cols-2 gap-4"
+          className="grid grid-cols-2 gap-2.5"
         >
           {achievements.map((achievement, index) => (
             <motion.div
@@ -267,23 +267,23 @@ export default function Profile() {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: index * 0.05 }}
-              className={`bg-white rounded-2xl p-5 shadow-md text-center ${
+              className={`bg-white rounded-xl p-4 shadow-md text-center ${
                 !achievement.unlocked && "opacity-50"
               }`}
             >
-              <div className="text-5xl mb-3">
+              <div className="text-4xl mb-2">
                 {achievement.unlocked ? achievement.icon : "🔒"}
               </div>
-              <h3 className="mb-2 text-sm">
+              <h3 className="mb-1.5 text-sm font-medium leading-tight">
                 {achievement.unlocked ? achievement.title : "???"}
               </h3>
-              <p className="text-xs text-[var(--muted-foreground)] mb-2">
+              <p className="text-[10px] text-[var(--muted-foreground)] mb-1.5 leading-tight">
                 {achievement.unlocked
                   ? achievement.description
                   : "Секретное достижение"}
               </p>
               {achievement.unlocked && achievement.date && (
-                <div className="text-xs text-[var(--primary)]">
+                <div className="text-[10px] text-[var(--primary)]">
                   {achievement.date}
                 </div>
               )}
@@ -297,7 +297,7 @@ export default function Profile() {
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          className="space-y-3"
+          className="space-y-2.5"
         >
           {history.map((day, index) => (
             <motion.div
@@ -305,11 +305,11 @@ export default function Profile() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.05 }}
-              className="bg-white rounded-xl p-4 shadow-md"
+              className="bg-white rounded-xl p-3.5 shadow-md"
             >
-              <div className="flex items-center gap-4">
+              <div className="flex items-center gap-3">
                 <div
-                  className="w-12 h-12 rounded-full flex items-center justify-center text-xl flex-shrink-0"
+                  className="w-10 h-10 rounded-full flex items-center justify-center text-lg flex-shrink-0"
                   style={{
                     backgroundColor:
                       day.status === "completed"
@@ -326,16 +326,16 @@ export default function Profile() {
                     ? "◐"
                     : "○"}
                 </div>
-                <div className="flex-1">
-                  <div className="font-medium mb-1">
+                <div className="flex-1 min-w-0">
+                  <div className="text-sm font-medium mb-0.5">
                     {new Date(day.date).toLocaleDateString("ru-RU", {
                       day: "numeric",
                       month: "long",
                     })}
                   </div>
-                  <div className="text-sm text-[var(--muted-foreground)]">
+                  <div className="text-xs text-[var(--muted-foreground)]">
                     {day.exercises > 0
-                      ? `${day.exercises} упражнени${day.exercises === 1 ? "е" : "я"} • ${day.stars} звезд`
+                      ? `${day.exercises} упр. • ${day.stars} звезд`
                       : "Пропущено"}
                   </div>
                 </div>

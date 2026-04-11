@@ -55,70 +55,70 @@ export default function ParentDashboard() {
   ];
 
   return (
-    <div className="min-h-screen p-6 pb-24">
+    <div className="min-h-screen p-4 pb-24 max-w-2xl mx-auto">
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="mb-8"
+        className="mb-6"
       >
-        <h1 className="text-3xl mb-2">Родительская панель</h1>
-        <p className="text-[var(--muted-foreground)]">
+        <h1 className="text-2xl mb-1">Родительская панель</h1>
+        <p className="text-sm text-[var(--muted-foreground)]">
           Отслеживайте прогресс ваших детей
         </p>
       </motion.div>
 
       {/* Children Cards */}
-      <div className="mb-8">
-        <div className="flex items-center justify-between mb-4">
-          <h2>Дети</h2>
-          <button className="flex items-center gap-2 text-[var(--primary)] hover:underline">
-            <Plus size={20} />
-            Добавить ребенка
+      <div className="mb-6">
+        <div className="flex items-center justify-between mb-3">
+          <h2 className="text-lg">Дети</h2>
+          <button className="flex items-center gap-1.5 text-sm text-[var(--primary)] hover:underline">
+            <Plus size={18} />
+            Добавить
           </button>
         </div>
 
-        <div className="space-y-4">
+        <div className="space-y-3">
           {children.map((child, index) => (
             <motion.div
               key={child.id}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: index * 0.1 }}
-              className="bg-white rounded-2xl p-6 shadow-lg hover:shadow-xl transition-shadow cursor-pointer"
+              className="bg-white rounded-xl p-4 shadow-lg active:shadow-xl transition-shadow cursor-pointer"
             >
-              <div className="flex items-center gap-4 mb-4">
-                <div className="w-16 h-16 bg-gradient-to-br from-[var(--primary)] to-[var(--secondary)] rounded-full flex items-center justify-center text-3xl shadow-lg">
+              <div className="flex items-center gap-3 mb-3">
+                <div className="w-14 h-14 bg-gradient-to-br from-[var(--primary)] to-[var(--secondary)] rounded-full flex items-center justify-center text-2xl shadow-lg flex-shrink-0">
                   {child.avatar}
                 </div>
-                <div className="flex-1">
-                  <h3>
+                <div className="flex-1 min-w-0">
+                  <h3 className="text-base truncate">
                     {child.name}, {child.age} лет
                   </h3>
-                  <p className="text-[var(--muted-foreground)]">
-                    {child.exercisesToday} упражнени{child.exercisesToday === 1 ? "е" : "я"} сегодня
+                  <p className="text-sm text-[var(--muted-foreground)]">
+                    {child.exercisesToday} упр. сегодня
                   </p>
                 </div>
-                <div className="text-right">
+                <div className="text-right flex-shrink-0">
                   <div
-                    className="text-2xl mb-1"
+                    className="text-xl mb-0.5"
                     style={{ color: "var(--success)" }}
                   >
                     {child.weekProgress}%
                   </div>
-                  <div className="text-sm text-[var(--muted-foreground)]">
-                    за неделю
+                  <div className="text-xs text-[var(--muted-foreground)]">
+                    неделя
                   </div>
                 </div>
               </div>
 
               {/* Progress Bar */}
-              <div className="mb-4">
-                <div className="flex justify-between text-sm mb-2">
+              <div className="mb-3">
+                <div className="flex justify-between text-xs mb-1.5">
                   <span>Недельный прогресс</span>
                   <span>{child.weekProgress}%</span>
                 </div>
-                <div className="h-3 bg-gray-200 rounded-full overflow-hidden">
+                <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
                   <motion.div
                     initial={{ width: 0 }}
                     animate={{ width: `${child.weekProgress}%` }}
@@ -133,37 +133,37 @@ export default function ParentDashboard() {
               </div>
 
               {/* Stats */}
-              <div className="grid grid-cols-3 gap-3">
+              <div className="grid grid-cols-3 gap-2">
                 <div className="text-center">
                   <Calendar
-                    size={20}
-                    className="mx-auto mb-1"
+                    size={18}
+                    className="mx-auto mb-0.5"
                     style={{ color: "var(--primary)" }}
                   />
-                  <div className="text-sm">{child.streak} дней</div>
-                  <div className="text-xs text-[var(--muted-foreground)]">
+                  <div className="text-xs font-medium">{child.streak} дн</div>
+                  <div className="text-[10px] text-[var(--muted-foreground)]">
                     серия
                   </div>
                 </div>
                 <div className="text-center">
                   <Award
-                    size={20}
-                    className="mx-auto mb-1"
+                    size={18}
+                    className="mx-auto mb-0.5"
                     style={{ color: "var(--warning)" }}
                   />
-                  <div className="text-sm">5 новых</div>
-                  <div className="text-xs text-[var(--muted-foreground)]">
+                  <div className="text-xs font-medium">5 нов</div>
+                  <div className="text-[10px] text-[var(--muted-foreground)]">
                     наград
                   </div>
                 </div>
                 <div className="text-center">
                   <TrendingUp
-                    size={20}
-                    className="mx-auto mb-1"
+                    size={18}
+                    className="mx-auto mb-0.5"
                     style={{ color: "var(--success)" }}
                   />
-                  <div className="text-sm">+15%</div>
-                  <div className="text-xs text-[var(--muted-foreground)]">
+                  <div className="text-xs font-medium">+15%</div>
+                  <div className="text-[10px] text-[var(--muted-foreground)]">
                     рост
                   </div>
                 </div>
@@ -178,18 +178,18 @@ export default function ParentDashboard() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 0.3 }}
-        className="mb-8"
+        className="mb-6"
       >
         <Link to="/chat">
-          <div className="bg-gradient-to-r from-[var(--primary)] to-[var(--secondary)] rounded-2xl p-6 text-white shadow-lg hover:shadow-xl transition-shadow">
+          <div className="bg-gradient-to-r from-[var(--primary)] to-[var(--secondary)] rounded-xl p-5 text-white shadow-lg active:shadow-xl transition-shadow">
             <div className="flex items-center justify-between">
               <div>
-                <h3 className="mb-2">Чат со специалистом</h3>
-                <p className="text-white text-opacity-90">
+                <h3 className="mb-1 text-base">Чат со специалистом</h3>
+                <p className="text-white text-opacity-90 text-sm">
                   Задайте вопрос логопеду
                 </p>
               </div>
-              <MessageCircle size={32} />
+              <MessageCircle size={28} className="flex-shrink-0" />
             </div>
           </div>
         </Link>
@@ -197,19 +197,19 @@ export default function ParentDashboard() {
 
       {/* Notifications */}
       <div>
-        <h2 className="mb-4">Уведомления</h2>
-        <div className="space-y-3">
+        <h2 className="mb-3 text-lg">Уведомления</h2>
+        <div className="space-y-2.5">
           {notifications.map((notification, index) => (
             <motion.div
               key={notification.id}
               initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.4 + index * 0.1 }}
-              className="bg-white rounded-xl p-4 shadow-md"
+              className="bg-white rounded-xl p-3.5 shadow-md"
             >
-              <div className="flex items-start gap-3">
+              <div className="flex items-start gap-2.5">
                 <div
-                  className="w-10 h-10 rounded-full flex items-center justify-center text-lg flex-shrink-0"
+                  className="w-9 h-9 rounded-full flex items-center justify-center text-base flex-shrink-0"
                   style={{
                     backgroundColor:
                       notification.type === "achievement"
@@ -226,14 +226,14 @@ export default function ParentDashboard() {
                     ? "✓"
                     : "📋"}
                 </div>
-                <div className="flex-1">
-                  <div className="flex items-center gap-2 mb-1">
-                    <span className="font-medium">{notification.child}</span>
-                    <span className="text-xs text-[var(--muted-foreground)]">
+                <div className="flex-1 min-w-0">
+                  <div className="flex items-center gap-1.5 mb-0.5">
+                    <span className="font-medium text-sm">{notification.child}</span>
+                    <span className="text-[10px] text-[var(--muted-foreground)]">
                       • {notification.time}
                     </span>
                   </div>
-                  <p className="text-[var(--muted-foreground)]">
+                  <p className="text-sm text-[var(--muted-foreground)] leading-tight">
                     {notification.message}
                   </p>
                 </div>

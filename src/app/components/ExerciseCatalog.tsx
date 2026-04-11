@@ -124,23 +124,23 @@ export default function ExerciseCatalog() {
   });
 
   return (
-    <div className="min-h-screen p-6 pb-24">
+    <div className="min-h-screen p-4 pb-24 max-w-2xl mx-auto">
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        className="mb-6"
+        className="mb-5"
       >
-        <h1 className="text-3xl mb-2">Упражнения</h1>
-        <p className="text-[var(--muted-foreground)]">
+        <h1 className="text-2xl mb-1">Упражнения</h1>
+        <p className="text-sm text-[var(--muted-foreground)]">
           Выбери упражнение для тренировки
         </p>
       </motion.div>
 
       {/* Category Filter */}
-      <div className="mb-6">
-        <h3 className="mb-3">Категория</h3>
-        <div className="flex gap-3 overflow-x-auto pb-2">
+      <div className="mb-5">
+        <h3 className="mb-2 text-base">Категория</h3>
+        <div className="flex gap-2 overflow-x-auto pb-2 -mx-4 px-4">
           {categories.map((category, index) => (
             <motion.button
               key={category.id}
@@ -149,7 +149,7 @@ export default function ExerciseCatalog() {
               transition={{ delay: index * 0.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => setSelectedCategory(category.id)}
-              className={`flex items-center gap-2 px-4 py-3 rounded-xl whitespace-nowrap transition-all ${
+              className={`flex items-center gap-2 px-3 py-2.5 rounded-xl whitespace-nowrap transition-all text-sm ${
                 selectedCategory === category.id
                   ? "text-white shadow-lg"
                   : "bg-white text-gray-700 shadow-md"
@@ -161,21 +161,21 @@ export default function ExerciseCatalog() {
                     : undefined,
               }}
             >
-              <span className="text-xl">{category.icon}</span>
-              <span className="font-medium">{category.name}</span>
+              <span className="text-lg">{category.icon}</span>
+              <span>{category.name}</span>
             </motion.button>
           ))}
         </div>
       </div>
 
       {/* Difficulty Filter */}
-      <div className="mb-6">
-        <h3 className="mb-3">Сложность</h3>
-        <div className="flex gap-2">
+      <div className="mb-5">
+        <h3 className="mb-2 text-base">Сложность</h3>
+        <div className="flex gap-2 overflow-x-auto pb-1 -mx-4 px-4">
           <motion.button
             whileTap={{ scale: 0.95 }}
             onClick={() => setSelectedDifficulty(null)}
-            className={`px-4 py-2 rounded-xl transition-all ${
+            className={`px-3 py-2 rounded-xl transition-all text-sm flex-shrink-0 ${
               selectedDifficulty === null
                 ? "bg-[var(--primary)] text-white shadow-lg"
                 : "bg-white text-gray-700 shadow-md"
@@ -188,14 +188,14 @@ export default function ExerciseCatalog() {
               key={level}
               whileTap={{ scale: 0.95 }}
               onClick={() => setSelectedDifficulty(level)}
-              className={`px-4 py-2 rounded-xl flex items-center gap-1 transition-all ${
+              className={`px-3 py-2 rounded-xl flex items-center gap-1 transition-all text-sm flex-shrink-0 ${
                 selectedDifficulty === level
                   ? "bg-[var(--primary)] text-white shadow-lg"
                   : "bg-white text-gray-700 shadow-md"
               }`}
             >
               <Star
-                size={16}
+                size={14}
                 fill={
                   selectedDifficulty === level ? "white" : "var(--warning)"
                 }
@@ -211,7 +211,7 @@ export default function ExerciseCatalog() {
       </div>
 
       {/* Exercise Grid */}
-      <div className="space-y-4">
+      <div className="space-y-2.5">
         {filteredExercises.map((exercise, index) => (
           <motion.div
             key={exercise.id}
@@ -219,31 +219,31 @@ export default function ExerciseCatalog() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: index * 0.05 }}
             whileTap={!exercise.locked ? { scale: 0.98 } : {}}
-            className={`bg-white rounded-2xl p-5 shadow-md relative ${
+            className={`bg-white rounded-xl p-4 shadow-md relative ${
               exercise.locked
                 ? "opacity-60"
-                : "hover:shadow-lg transition-shadow cursor-pointer"
+                : "active:shadow-lg transition-shadow cursor-pointer"
             }`}
           >
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-3">
               <div
-                className="w-16 h-16 rounded-xl flex items-center justify-center text-3xl flex-shrink-0"
+                className="w-14 h-14 rounded-lg flex items-center justify-center text-2xl flex-shrink-0"
                 style={{
                   backgroundColor: `${getCategoryColor(exercise.category)}20`,
                 }}
               >
-                {exercise.locked ? <Lock size={28} /> : exercise.icon}
+                {exercise.locked ? <Lock size={24} /> : exercise.icon}
               </div>
 
-              <div className="flex-1">
-                <h3 className="mb-1">{exercise.title}</h3>
+              <div className="flex-1 min-w-0">
+                <h3 className="mb-1 text-base truncate">{exercise.title}</h3>
 
                 {/* Difficulty */}
-                <div className="flex items-center gap-1 mb-2">
+                <div className="flex items-center gap-1 mb-1.5">
                   {[...Array(5)].map((_, i) => (
                     <Star
                       key={i}
-                      size={14}
+                      size={12}
                       fill={
                         i < exercise.difficulty ? "var(--warning)" : "none"
                       }
@@ -256,11 +256,11 @@ export default function ExerciseCatalog() {
                     />
                   ))}
                   <Clock
-                    size={14}
-                    className="ml-2"
+                    size={12}
+                    className="ml-1.5"
                     style={{ color: "var(--muted-foreground)" }}
                   />
-                  <span className="text-sm text-[var(--muted-foreground)]">
+                  <span className="text-xs text-[var(--muted-foreground)]">
                     {exercise.duration} мин
                   </span>
                 </div>
@@ -268,7 +268,7 @@ export default function ExerciseCatalog() {
                 {/* Progress */}
                 {!exercise.locked && exercise.progress > 0 && (
                   <div>
-                    <div className="flex justify-between text-xs mb-1">
+                    <div className="flex justify-between text-[10px] mb-1">
                       <span className="text-[var(--muted-foreground)]">
                         Прогресс
                       </span>
@@ -276,7 +276,7 @@ export default function ExerciseCatalog() {
                         {exercise.progress}%
                       </span>
                     </div>
-                    <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
+                    <div className="h-1.5 bg-gray-200 rounded-full overflow-hidden">
                       <div
                         className="h-full rounded-full transition-all"
                         style={{
@@ -289,8 +289,8 @@ export default function ExerciseCatalog() {
                 )}
 
                 {exercise.locked && (
-                  <div className="text-sm text-[var(--muted-foreground)]">
-                    Доступно после уровня 5
+                  <div className="text-xs text-[var(--muted-foreground)]">
+                    Доступно после ур. 5
                   </div>
                 )}
               </div>
@@ -303,11 +303,11 @@ export default function ExerciseCatalog() {
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          className="text-center py-12"
+          className="text-center py-10"
         >
-          <div className="text-6xl mb-4">🔍</div>
-          <h3 className="mb-2">Упражнения не найдены</h3>
-          <p className="text-[var(--muted-foreground)]">
+          <div className="text-5xl mb-3">🔍</div>
+          <h3 className="mb-1 text-base">Упражнения не найдены</h3>
+          <p className="text-sm text-[var(--muted-foreground)]">
             Попробуйте изменить фильтры
           </p>
         </motion.div>
