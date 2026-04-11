@@ -15,13 +15,18 @@ export default function Settings() {
   const [soundEnabled, setSoundEnabled] = useState(true);
   const [notificationsEnabled, setNotificationsEnabled] = useState(true);
   const [ttsSpeed, setTtsSpeed] = useState(1);
+  const [autismMode, setAutismMode] = useState(false);
+  const [adhdMode, setAdhdMode] = useState(false);
+  const [vibrationEnabled, setVibrationEnabled] = useState(true);
 
   const Toggle = ({
     enabled,
     onChange,
+    id,
   }: {
     enabled: boolean;
     onChange: (val: boolean) => void;
+    id: string;
   }) => (
     <button
       onClick={() => onChange(!enabled)}
@@ -30,8 +35,9 @@ export default function Settings() {
       }`}
     >
       <motion.div
-        animate={{ x: enabled ? 18 : 2 }}
-        transition={{ type: "spring", stiffness: 500, damping: 30 }}
+        layoutId={id}
+        animate={{ x: enabled ? 22 : 2 }}
+        transition={{ type: "spring", stiffness: 400, damping: 25 }}
         className="w-5 h-5 bg-white rounded-full absolute top-0.5 shadow-md"
       />
     </button>
@@ -114,7 +120,11 @@ export default function Settings() {
                 <Volume2 size={18} style={{ color: "var(--primary)" }} />
                 <span className="text-sm">Звук</span>
               </div>
-              <Toggle enabled={soundEnabled} onChange={setSoundEnabled} />
+              <Toggle
+                id="sound-toggle"
+                enabled={soundEnabled}
+                onChange={setSoundEnabled}
+              />
             </div>
           </div>
 
@@ -125,6 +135,7 @@ export default function Settings() {
                 <span className="text-sm">Уведомления</span>
               </div>
               <Toggle
+                id="notifications-toggle"
                 enabled={notificationsEnabled}
                 onChange={setNotificationsEnabled}
               />
@@ -198,46 +209,48 @@ export default function Settings() {
           </div>
 
           <div className="p-3.5">
-            <div className="space-y-2.5">
-              <label className="flex items-start gap-2.5 cursor-pointer">
-                <input
-                  type="checkbox"
-                  className="w-4 h-4 mt-0.5 accent-[var(--primary)] rounded flex-shrink-0"
-                />
+            <div className="space-y-3">
+              <div className="flex items-start justify-between gap-2.5">
                 <div>
                   <div className="text-sm font-medium">Аутизм-friendly режим</div>
                   <div className="text-xs text-[var(--muted-foreground)] leading-tight">
                     Спокойные цвета, минимум анимаций
                   </div>
                 </div>
-              </label>
-
-              <label className="flex items-start gap-2.5 cursor-pointer">
-                <input
-                  type="checkbox"
-                  className="w-4 h-4 mt-0.5 accent-[var(--primary)] rounded flex-shrink-0"
+                <Toggle
+                  id="autism-toggle"
+                  enabled={autismMode}
+                  onChange={setAutismMode}
                 />
+              </div>
+
+              <div className="flex items-start justify-between gap-2.5">
                 <div>
                   <div className="text-sm font-medium">СДВГ-режим</div>
                   <div className="text-xs text-[var(--muted-foreground)] leading-tight">
                     Короткие сессии, частые перерывы
                   </div>
                 </div>
-              </label>
-
-              <label className="flex items-start gap-2.5 cursor-pointer">
-                <input
-                  type="checkbox"
-                  defaultChecked
-                  className="w-4 h-4 mt-0.5 accent-[var(--primary)] rounded flex-shrink-0"
+                <Toggle
+                  id="adhd-toggle"
+                  enabled={adhdMode}
+                  onChange={setAdhdMode}
                 />
+              </div>
+
+              <div className="flex items-start justify-between gap-2.5">
                 <div>
                   <div className="text-sm font-medium">Виброотклик</div>
                   <div className="text-xs text-[var(--muted-foreground)] leading-tight">
                     Вибрация при касании
                   </div>
                 </div>
-              </label>
+                <Toggle
+                  id="vibration-toggle"
+                  enabled={vibrationEnabled}
+                  onChange={setVibrationEnabled}
+                />
+              </div>
             </div>
           </div>
         </motion.div>

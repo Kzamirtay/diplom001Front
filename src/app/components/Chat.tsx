@@ -50,7 +50,7 @@ export default function Chat() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col pb-24 max-w-2xl mx-auto">
+    <div className="min-h-screen flex flex-col max-w-2xl mx-auto">
       {/* Header */}
       <div className="bg-white border-b border-[var(--border)] p-3 sticky top-0 z-10 shadow-sm">
         <div className="flex items-center gap-2.5">
@@ -67,7 +67,7 @@ export default function Chat() {
       </div>
 
       {/* Messages */}
-      <div className="flex-1 p-3 space-y-3 overflow-y-auto">
+      <div className="flex-1 p-3 space-y-3 overflow-y-auto pb-32">
         {messages.map((msg, index) => (
           <motion.div
             key={msg.id}
@@ -107,29 +107,31 @@ export default function Chat() {
         ))}
       </div>
 
-      {/* Quick Replies */}
-      <div className="px-3 pb-2">
-        <div className="flex gap-2 overflow-x-auto pb-1">
-          {["Спасибо!", "Хорошо", "Когда следующее?"].map(
-            (reply, index) => (
-              <motion.button
-                key={index}
-                whileTap={{ scale: 0.95 }}
-                onClick={() => setMessage(reply)}
-                className="bg-white border border-[var(--border)] px-3 py-1.5 rounded-full text-xs whitespace-nowrap shadow-sm active:shadow-md transition-shadow"
-              >
-                {reply}
-              </motion.button>
-            )
-          )}
+      {/* Input Area - Fixed at bottom */}
+      <div className="fixed bottom-16 left-0 right-0 bg-white border-t border-[var(--border)] max-w-2xl mx-auto z-20">
+        {/* Quick Replies */}
+        <div className="px-3 pt-2 pb-1">
+          <div className="flex gap-2 overflow-x-auto pb-1">
+            {["Спасибо!", "Хорошо", "Когда следующее?"].map(
+              (reply, index) => (
+                <motion.button
+                  key={index}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => setMessage(reply)}
+                  className="bg-white border border-[var(--border)] px-3 py-1.5 rounded-full text-xs whitespace-nowrap shadow-sm active:shadow-md transition-shadow"
+                >
+                  {reply}
+                </motion.button>
+              )
+            )}
+          </div>
         </div>
-      </div>
 
-      {/* Input */}
-      <div className="bg-white border-t border-[var(--border)] p-3">
-        <div className="flex items-center gap-1.5">
-          <button className="w-9 h-9 flex items-center justify-center text-[var(--primary)] rounded-full active:bg-gray-100 transition-colors flex-shrink-0">
-            <Paperclip size={18} />
+        {/* Input */}
+        <div className="p-2.5">
+        <div className="flex items-center gap-1">
+          <button className="w-8 h-8 flex items-center justify-center text-[var(--primary)] rounded-full active:bg-gray-100 transition-colors flex-shrink-0">
+            <Paperclip size={16} />
           </button>
 
           <input
@@ -138,21 +140,18 @@ export default function Chat() {
             onChange={(e) => setMessage(e.target.value)}
             onKeyPress={(e) => e.key === "Enter" && handleSend()}
             placeholder="Сообщение..."
-            className="flex-1 px-4 py-2.5 bg-[var(--background)] rounded-full border border-[var(--border)] focus:outline-none focus:ring-2 focus:ring-[var(--primary)] text-sm"
+            className="flex-1 px-3 py-2 bg-[var(--background)] rounded-full border border-[var(--border)] focus:outline-none focus:ring-2 focus:ring-[var(--primary)] text-sm min-w-0"
           />
-
-          <button className="w-9 h-9 flex items-center justify-center text-[var(--primary)] rounded-full active:bg-gray-100 transition-colors flex-shrink-0">
-            <Mic size={18} />
-          </button>
 
           <motion.button
             whileTap={{ scale: 0.95 }}
             onClick={handleSend}
             disabled={!message.trim()}
-            className="w-9 h-9 flex items-center justify-center bg-[var(--primary)] text-white rounded-full shadow-lg disabled:opacity-50 disabled:cursor-not-allowed flex-shrink-0"
+            className="w-8 h-8 flex items-center justify-center bg-[var(--primary)] text-white rounded-full shadow-lg disabled:opacity-50 disabled:cursor-not-allowed flex-shrink-0"
           >
-            <Send size={18} />
+            <Send size={16} />
           </motion.button>
+        </div>
         </div>
       </div>
     </div>
