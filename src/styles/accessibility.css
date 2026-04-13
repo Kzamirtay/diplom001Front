@@ -1,0 +1,163 @@
+/* ===== АУТИЗМ-FRIENDLY РЕЖИМ ===== */
+.autism-mode {
+  /* Спокойные пастельные цвета */
+  --primary: #7cb342 !important;
+  --secondary: #aed581 !important;
+  --speech: #5c6bc0 !important;
+  --cognition: #26a69a !important;
+  --articulation: #ffa726 !important;
+  --warning: #ffb74d !important;
+  --success: #81c784 !important;
+  --error: #e57373 !important;
+  
+  /* Убираем яркие градиенты */
+  --primary-gradient: linear-gradient(135deg, #7cb342, #9ccc65) !important;
+  --secondary-gradient: linear-gradient(135deg, #9ccc65, #aed581) !important;
+}
+
+.autism-mode * {
+  /* Уменьшаем анимации */
+  animation-duration: 0.3s !important;
+  transition-duration: 0.2s !important;
+}
+
+.autism-mode .animate-spin,
+.autism-mode .animate-bounce,
+.autism-mode .animate-pulse {
+  animation: none !important;
+}
+
+.autism-mode .bg-gradient-to-br,
+.autism-mode .bg-gradient-to-r {
+  background: var(--background) !important;
+}
+
+/* ===== СДВГ-РЕЖИМ ===== */
+.adhd-mode {
+  /* Яркие контрастные цвета для привлечения внимания */
+  --primary: #2196f3 !important;
+  --secondary: #ff5722 !important;
+  --speech: #9c27b0 !important;
+  --cognition: #00bcd4 !important;
+  --articulation: #ff9800 !important;
+  --warning: #ffeb3b !important;
+  --success: #4caf50 !important;
+  
+  /* Более заметные границы */
+  --border-width: 3px;
+}
+
+.adhd-mode * {
+  /* Увеличиваем контрастность */
+  font-weight: 500 !important;
+}
+
+.adhd-mode button,
+.adhd-mode .btn {
+  border: 3px solid currentColor !important;
+  box-shadow: 0 4px 0 currentColor !important;
+}
+
+.adhd-mode button:active,
+.adhd-mode .btn:active {
+  transform: translateY(4px) !important;
+  box-shadow: 0 0 0 currentColor !important;
+}
+
+/* ===== ВЫСОКИЙ КОНТРАСТ ===== */
+.high-contrast {
+  --background: #000000 !important;
+  --foreground: #ffffff !important;
+  --primary: #ffff00 !important;
+  --secondary: #00ffff !important;
+  --border: #ffffff !important;
+  --muted-foreground: #cccccc !important;
+}
+
+.high-contrast * {
+  border-color: white !important;
+  color: white !important;
+}
+
+.high-contrast button {
+  background: black !important;
+  border: 3px solid white !important;
+  color: white !important;
+}
+
+/* ===== РАЗМЕРЫ ШРИФТОВ ===== */
+.text-sm-accessibility {
+  font-size: 14px !important;
+}
+
+.text-base-accessibility {
+  font-size: 16px !important;
+}
+
+.text-lg-accessibility {
+  font-size: 18px !important;
+}
+
+.text-xl-accessibility {
+  font-size: 20px !important;
+}
+
+/* Увеличенные кнопки для лучшего доступа */
+.text-xl-accessibility button,
+.text-xl-accessibility .btn {
+  min-height: 56px !important;
+  padding: 16px 24px !important;
+}
+
+/* ===== СДВГ: ТАЙМЕР ПЕРЕРЫВА ===== */
+.break-reminder {
+  position: fixed;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--secondary);
+  color: white;
+  padding: 12px 24px;
+  border-radius: 24px;
+  font-weight: 600;
+  z-index: 50;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateX(-50%) translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+  }
+}
+
+/* ===== ОБЩИЕ УЛУЧШЕНИЯ ДОСТУПНОСТИ ===== */
+/* Фокус-стили для клавиатурной навигации */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible {
+  outline: 3px solid var(--primary);
+  outline-offset: 2px;
+}
+
+/* Увеличенная область касания */
+.touch-target {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+/* Уменьшение движения для тех, кто предпочитает */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

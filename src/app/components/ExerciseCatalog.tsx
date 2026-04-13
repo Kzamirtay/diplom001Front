@@ -1,130 +1,131 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "motion/react";
-import { Star, Lock, Clock } from "lucide-react";
+import { Star, Lock, Clock, Loader2 } from "lucide-react";
+import { exercisesAPI } from "../../services/api";
+import { useAuth } from "../../contexts/AuthContext";
+import { Link } from "react-router";
 
-type Category = "all" | "speech" | "cognition" | "articulation";
+type Category = "all" | "speech" | "cognitive" | "articulation";
+
+interface Exercise {
+  id: number;
+  title: string;
+  type: string;
+  difficulty_level: number;
+  duration_minutes?: number;
+  description?: string;
+  is_completed?: boolean;
+  last_score?: number;
+}
+
+interface CategoryData {
+  id: number;
+  name: string;
+  slug: string;
+  icon?: string;
+  color?: string;
+}
 
 export default function ExerciseCatalog() {
+  const { currentChild } = useAuth();
   const [selectedCategory, setSelectedCategory] = useState<Category>("all");
-  const [selectedDifficulty, setSelectedDifficulty] = useState<number | null>(
-    null
-  );
+  const [selectedDifficulty, setSelectedDifficulty] = useState<number | null>(null);
+  const [exercises, setExercises] = useState<Exercise[]>([]);
+  const [categories, setCategories] = useState<CategoryData[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
 
-  const categories = [
+  const categoryMap: Record<string, { name: string; icon: string; color: string }> = {
+    speech: { name: "Речь", icon: "🗣️", color: "var(--speech)" },
+    cognitive: { name: "Когниция", icon: "🧠", color: "var(--cognition)" },
+    articulation: { name: "Артикуляция", icon: "👅", color: "var(--articulation)" },
+  };
+
+  const allCategories = [
     { id: "all" as Category, name: "Все", icon: "✨", color: "var(--primary)" },
     { id: "speech" as Category, name: "Речь", icon: "🗣️", color: "var(--speech)" },
-    {
-      id: "cognition" as Category,
-      name: "Когниция",
-      icon: "🧠",
-      color: "var(--cognition)",
-    },
-    {
-      id: "articulation" as Category,
-      name: "Артикуляция",
-      icon: "👅",
-      color: "var(--articulation)",
-    },
+    { id: "cognitive" as Category, name: "Когниция", icon: "🧠", color: "var(--cognition)" },
+    { id: "articulation" as Category, name: "Артикуляция", icon: "👅", color: "var(--articulation)" },
   ];
 
-  const exercises = [
-    {
-      id: 1,
-      title: "Найди звук",
-      category: "speech" as Category,
-      difficulty: 2,
-      duration: 10,
-      progress: 60,
-      icon: "🗣️",
-      locked: false,
-    },
-    {
-      id: 2,
-      title: "Запомни картинки",
-      category: "cognition" as Category,
-      difficulty: 3,
-      duration: 15,
-      progress: 20,
-      icon: "🧠",
-      locked: false,
-    },
-    {
-      id: 3,
-      title: "Гимнастика для языка",
-      category: "articulation" as Category,
-      difficulty: 1,
-      duration: 5,
-      progress: 100,
-      icon: "👅",
-      locked: false,
-    },
-    {
-      id: 4,
-      title: "Составь слово",
-      category: "speech" as Category,
-      difficulty: 3,
-      duration: 12,
-      progress: 0,
-      icon: "🗣️",
-      locked: false,
-    },
-    {
-      id: 5,
-      title: "Найди отличия",
-      category: "cognition" as Category,
-      difficulty: 2,
-      duration: 10,
-      progress: 40,
-      icon: "🧠",
-      locked: false,
-    },
-    {
-      id: 6,
-      title: "Повтори звук",
-      category: "articulation" as Category,
-      difficulty: 2,
-      duration: 8,
-      progress: 0,
-      icon: "👅",
-      locked: false,
-    },
-    {
-      id: 7,
-      title: "Сложные слова",
-      category: "speech" as Category,
-      difficulty: 5,
-      duration: 20,
-      progress: 0,
-      icon: "🗣️",
-      locked: true,
-    },
-    {
-      id: 8,
-      title: "Лабиринт внимания",
-      category: "cognition" as Category,
-      difficulty: 4,
-      duration: 15,
-      progress: 0,
-      icon: "🧠",
-      locked: true,
-    },
-  ];
+  useEffect(() => {
+    loadData();
+  }, []);
 
-  const getCategoryColor = (category: Category) => {
-    const cat = categories.find((c) => c.id === category);
-    return cat?.color || "var(--primary)";
+  const loadData = async () => {
+    setLoading(true);
+    setError("");
+    
+    try {
+      // Загружаем категории
+      const catRes = await exercisesAPI.getCategories();
+      setCategories(catRes.data);
+      
+      // Загружаем упражнения
+      const params: any = {};
+      if (selectedCategory !== "all") {
+        params.type = selectedCategory;
+      }
+      if (selectedDifficulty !== null) {
+        params.difficulty = selectedDifficulty;
+      }
+      
+      const exRes = await exercisesAPI.getAll(params);
+      setExercises(exRes.data.data || exRes.data);
+    } catch (err: any) {
+      setError(err.response?.data?.message || "Ошибка загрузки упражнений");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Перезагружаем при изменении фильтров
+  useEffect(() => {
+    if (!loading) {
+      loadData();
+    }
+  }, [selectedCategory, selectedDifficulty]);
+
+  const getCategoryColor = (type: string) => {
+    return categoryMap[type]?.color || "var(--primary)";
+  };
+
+  const getCategoryIcon = (type: string) => {
+    return categoryMap[type]?.icon || "🎯";
+  };
+
+  const getCategoryName = (type: string) => {
+    return categoryMap[type]?.name || type;
   };
 
   const filteredExercises = exercises.filter((exercise) => {
-    const categoryMatch =
-      selectedCategory === "all" || exercise.category === selectedCategory;
-    const difficultyMatch =
-      selectedDifficulty === null || exercise.difficulty === selectedDifficulty;
+    const categoryMatch = selectedCategory === "all" || exercise.type === selectedCategory;
+    const difficultyMatch = selectedDifficulty === null || exercise.difficulty_level === selectedDifficulty;
     return categoryMatch && difficultyMatch;
   });
 
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <Loader2 className="w-8 h-8 animate-spin text-[var(--primary)]" />
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen p-4 pb-24 max-w-2xl mx-auto">
+      {/* Error */}
+      {error && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          className="bg-red-50 text-red-600 p-4 rounded-xl mb-4 text-sm"
+        >
+          {error}
+          <button onClick={loadData} className="ml-2 underline">Повторить</button>
+        </motion.div>
+      )}
+
       {/* Header */}
       <motion.div
         initial={{ opacity: 0, y: -20 }}
@@ -141,7 +142,7 @@ export default function ExerciseCatalog() {
       <div className="mb-5">
         <h3 className="mb-2 text-base">Категория</h3>
         <div className="flex gap-2 overflow-x-auto pb-2 -mx-4 px-4">
-          {categories.map((category, index) => (
+          {allCategories.map((category, index) => (
             <motion.button
               key={category.id}
               initial={{ opacity: 0, scale: 0.9 }}
@@ -212,91 +213,98 @@ export default function ExerciseCatalog() {
 
       {/* Exercise Grid */}
       <div className="space-y-2.5">
-        {filteredExercises.map((exercise, index) => (
-          <motion.div
-            key={exercise.id}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: index * 0.05 }}
-            whileTap={!exercise.locked ? { scale: 0.98 } : {}}
-            className={`bg-white rounded-xl p-4 shadow-md relative ${
-              exercise.locked
-                ? "opacity-60"
-                : "active:shadow-lg transition-shadow cursor-pointer"
-            }`}
-          >
-            <div className="flex items-center gap-3">
-              <div
-                className="w-14 h-14 rounded-lg flex items-center justify-center text-2xl flex-shrink-0"
-                style={{
-                  backgroundColor: `${getCategoryColor(exercise.category)}20`,
-                }}
-              >
-                {exercise.locked ? <Lock size={24} /> : exercise.icon}
-              </div>
+        {filteredExercises.map((exercise, index) => {
+          const isLocked = exercise.difficulty_level > 3 && !exercise.is_completed;
+          const progress = exercise.is_completed ? 100 : (exercise.last_score ? Math.round(exercise.last_score * 10) : 0);
+          
+          return (
+            <motion.div
+              key={exercise.id}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: index * 0.05 }}
+              whileTap={!isLocked ? { scale: 0.98 } : {}}
+              className={`bg-white rounded-xl p-4 shadow-md relative ${
+                isLocked
+                  ? "opacity-60"
+                  : "active:shadow-lg transition-shadow cursor-pointer"
+              }`}
+            >
+              <Link to={isLocked ? "#" : `/exercises/${exercise.id}`} className="block">
+                <div className="flex items-center gap-3">
+                  <div
+                    className="w-14 h-14 rounded-lg flex items-center justify-center text-2xl flex-shrink-0"
+                    style={{
+                      backgroundColor: `${getCategoryColor(exercise.type)}20`,
+                    }}
+                  >
+                    {isLocked ? <Lock size={24} /> : getCategoryIcon(exercise.type)}
+                  </div>
 
-              <div className="flex-1 min-w-0">
-                <h3 className="mb-1 text-base truncate">{exercise.title}</h3>
+                  <div className="flex-1 min-w-0">
+                    <h3 className="mb-1 text-base truncate">{exercise.title}</h3>
 
-                {/* Difficulty */}
-                <div className="flex items-center gap-1 mb-1.5">
-                  {[...Array(5)].map((_, i) => (
-                    <Star
-                      key={i}
-                      size={12}
-                      fill={
-                        i < exercise.difficulty ? "var(--warning)" : "none"
-                      }
-                      style={{
-                        color:
-                          i < exercise.difficulty
-                            ? "var(--warning)"
-                            : "var(--border)",
-                      }}
-                    />
-                  ))}
-                  <Clock
-                    size={12}
-                    className="ml-1.5"
-                    style={{ color: "var(--muted-foreground)" }}
-                  />
-                  <span className="text-xs text-[var(--muted-foreground)]">
-                    {exercise.duration} мин
-                  </span>
-                </div>
-
-                {/* Progress */}
-                {!exercise.locked && exercise.progress > 0 && (
-                  <div>
-                    <div className="flex justify-between text-[10px] mb-1">
-                      <span className="text-[var(--muted-foreground)]">
-                        Прогресс
-                      </span>
-                      <span className="text-[var(--muted-foreground)]">
-                        {exercise.progress}%
-                      </span>
-                    </div>
-                    <div className="h-1.5 bg-gray-200 rounded-full overflow-hidden">
-                      <div
-                        className="h-full rounded-full transition-all"
-                        style={{
-                          width: `${exercise.progress}%`,
-                          backgroundColor: getCategoryColor(exercise.category),
-                        }}
+                    {/* Difficulty */}
+                    <div className="flex items-center gap-1 mb-1.5">
+                      {[...Array(5)].map((_, i) => (
+                        <Star
+                          key={i}
+                          size={12}
+                          fill={
+                            i < exercise.difficulty_level ? "var(--warning)" : "none"
+                          }
+                          style={{
+                            color:
+                              i < exercise.difficulty_level
+                                ? "var(--warning)"
+                                : "var(--border)",
+                          }}
+                        />
+                      ))}
+                      <Clock
+                        size={12}
+                        className="ml-1.5"
+                        style={{ color: "var(--muted-foreground)" }}
                       />
+                      <span className="text-xs text-[var(--muted-foreground)]">
+                        {exercise.duration_minutes || 10} мин
+                      </span>
                     </div>
-                  </div>
-                )}
 
-                {exercise.locked && (
-                  <div className="text-xs text-[var(--muted-foreground)]">
-                    Доступно после ур. 5
+                    {/* Progress */}
+                    {!isLocked && progress > 0 && (
+                      <div>
+                        <div className="flex justify-between text-[10px] mb-1">
+                          <span className="text-[var(--muted-foreground)]">
+                            Прогресс
+                          </span>
+                          <span className="text-[var(--muted-foreground)]">
+                            {progress}%
+                          </span>
+                        </div>
+                        <div className="h-1.5 bg-gray-200 rounded-full overflow-hidden">
+                          <div
+                            className="h-full rounded-full transition-all"
+                            style={{
+                              width: `${progress}%`,
+                              backgroundColor: getCategoryColor(exercise.type),
+                            }}
+                          />
+                        </div>
+                      </div>
+                    )}
+
+                    {isLocked && (
+                      <div className="text-xs text-[var(--muted-foreground)]">
+                        Доступно после прохождения предыдущих
+                      </div>
+                    )}
                   </div>
-                )}
-              </div>
-            </div>
-          </motion.div>
-        ))}
+                </div>
+              </Link>
+            </motion.div>
+          );
+        })}
       </div>
 
       {filteredExercises.length === 0 && (
